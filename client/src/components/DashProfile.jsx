@@ -9,6 +9,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { updateStart, updateFailure, updateSuccess, deleteUserFailure, deleteUserStart, deleteUserSuccess, signoutSuccess} from "../redux/user/userSlice.js";
 import { useDispatch } from "react-redux";
 import{HiOutlineExclamationCircle} from 'react-icons/hi';
+import { apiFetch } from "../api.js";
 
 
 export default function DashProfile() {
@@ -84,7 +85,7 @@ export default function DashProfile() {
     }
     try {
       dispatch(updateStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+      const res = await apiFetch(`/api/user/update/${currentUser._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -109,7 +110,7 @@ export default function DashProfile() {
     setShowModal(false)
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`,{
+      const res = await apiFetch(`/api/user/delete/${currentUser._id}`,{
         method: 'DELETE',
       });
       const data = await res.json();
@@ -125,7 +126,7 @@ export default function DashProfile() {
 
   const handleSignout = async () => {
     try {
-      const res = await fetch('/api/user/signout', {
+      const res = await apiFetch('/api/user/signout', {
         method: 'POST'
       });
       const data = await res.json();

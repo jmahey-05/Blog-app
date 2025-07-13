@@ -1,18 +1,22 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import PostCard from '../components/PostCard.jsx';
+import { apiFetch } from '../api.js';
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      const res = await fetch('/api/post/getPosts');
-      const data = await res.json();
+  const fetchPosts = async () => {
+    try {
+      const data = await apiFetch('/api/post/getPosts'); 
       setPosts(data.posts);
-    };
-    fetchPosts();
-  }, []);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    }
+  };
+  fetchPosts();
+}, []);
   return (
     <div>
       <div className='flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto '>
