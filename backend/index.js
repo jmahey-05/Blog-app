@@ -40,7 +40,11 @@ const db = async() =>{
 db();
 
 
-
+app.use('/ping', (req, res)=>{
+    res.json({
+        message: "Service is live"
+    });
+});
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
